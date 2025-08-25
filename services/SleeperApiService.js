@@ -29,14 +29,18 @@ export async function getSleeperUser(username) {
     }
 }
 
-export async function getSleeperUserLeagues(userId, season = '2024') {
+export async function getSleeperUserLeagues(userId, season = getCurrentNFLSeason()) {
     try {
         const response = await axios.get(`${SleeperApi}/user/${userId}/leagues/nfl/${season}`)
         return response.data
     } catch (error) {
-        console.error('Error fetching Sleeper leagues:', error)
+        console.error(`Error fetching Sleeper leagues for ${season}:`, error)
         throw error
     }
+}
+
+function getCurrentNFLSeason() {
+    return (new Date()).getFullYear()
 }
 
 export async function updateSleeperTeams(username, setPlayersTeams) {
