@@ -4,9 +4,11 @@ import {
     supportedNumTeams,
     ManualModeText,
     YahooModeText,
+    SleeperModeText,
     handleInputMode,
     handleTeamSelect,
-    LoginToYahooText
+    LoginToYahooText,
+    LoginToSleeperText
 } from "../functions/ControlPanelFunctions"
 import { positions } from "../functions/PlayerLabelFunctions"
 import { SearchBar } from "./SearchBar"
@@ -17,11 +19,32 @@ export default function ControlPanel({ pickNum, setPickNum, numTeams, setNumTeam
     inputMode, setInputMode, manualMode, setManualMode, playersTeams, setPlayersTeams,
     selectedTeam, setSelectedTeam, yahooLoggedIn, setYahooPkceCookie,
     yahooTokenCookie, setYahooTokenCookie, yahooDraftedPlayerKeys, setYahooDraftedPlayerKeys,
-    allPlayers, setDraftedMap
+    allPlayers, setDraftedMap,
+    sleeperUsername, setSleeperUsername, sleeperDraftedPlayerIds, setSleeperDraftedPlayerIds
 }) {
 
     const currentRound = computeRound(pickNum, numTeams)
     const currentPickInRound = computePickInRound(pickNum, numTeams)
+
+    const getInputModeOptions = () => {
+        const options = [
+            <Dropdown.Item key={ManualModeText}>{ManualModeText}</Dropdown.Item>
+        ]
+        
+        if (yahooLoggedIn) {
+            options.push(<Dropdown.Item key={YahooModeText}>{YahooModeText}</Dropdown.Item>)
+        } else {
+            options.push(<Dropdown.Item key={LoginToYahooText}>{LoginToYahooText}</Dropdown.Item>)
+        }
+        
+        if (sleeperUsername) {
+            options.push(<Dropdown.Item key={SleeperModeText}>{SleeperModeText}</Dropdown.Item>)
+        } else {
+            options.push(<Dropdown.Item key={LoginToSleeperText}>{LoginToSleeperText}</Dropdown.Item>)
+        }
+        
+        return options
+    }
 
     return <Container fluid>
         <Row>
@@ -50,10 +73,10 @@ export default function ControlPanel({ pickNum, setPickNum, numTeams, setNumTeam
             </Col>
             <Col md='auto'>
                 <DropdownButton size='sm' title={`Input Mode (${inputMode})`} onClick={event =>
-                    handleInputMode(event, inputMode, setInputMode, setManualMode, setYahooPkceCookie, yahooTokenCookie, setYahooTokenCookie, setPlayersTeams)
+                    handleInputMode(event, inputMode, setInputMode, setManualMode, setYahooPkceCookie, 
+                        yahooTokenCookie, setYahooTokenCookie, setPlayersTeams, sleeperUsername, setSleeperUsername)
                 } variant='secondary'>
-                    <Dropdown.Item key={ManualModeText}>{ManualModeText}</Dropdown.Item>
-                    <Dropdown.Item key={yahooLoggedIn ? YahooModeText : LoginToYahooText}>{yahooLoggedIn ? YahooModeText : LoginToYahooText}</Dropdown.Item>
+                    {getInputModeOptions()}
                 </DropdownButton>
             </Col>
             <Col md='auto'>
@@ -91,7 +114,8 @@ export default function ControlPanel({ pickNum, setPickNum, numTeams, setNumTeam
                     onClick={event =>
                         handleTeamSelect(event, selectedTeam, playersTeams, setSelectedTeam,
                             yahooTokenCookie, setYahooTokenCookie, yahooDraftedPlayerKeys,
-                            setYahooDraftedPlayerKeys, allPlayers, setDraftedMap, pickNum, setPickNum)
+                            setYahooDraftedPlayerKeys, allPlayers, setDraftedMap, pickNum, setPickNum,
+                            sleeperDraftedPlayerIds, setSleeperDraftedPlayerIds, inputMode)
                     }>
                     {
                         Object.keys(playersTeams).map(team =>

@@ -8,11 +8,12 @@ import {
     initDraftedMap
 } from "../functions/PlayerFunctions"
 import { allPositions } from "../functions/PlayerLabelFunctions"
-import { ManualModeText, YahooModeText } from "../functions/ControlPanelFunctions"
+import { ManualModeText, YahooModeText, SleeperModeText } from "../functions/ControlPanelFunctions"
 import { useCookies } from "react-cookie"
 import { YahooPkceCookieKey, YahooTokenCookieKey } from "../services/YahooTokenService"
 import { useInterval } from "../utils/utils"
 import { getDraftedPlayerKeys } from "../services/YahooApiService"
+import { getSleeperDraftedPlayers } from "../services/SleeperApiService"
 
 export default function MainPanel({ players, lastUpdateDate, yahooLoggedIn }) {
     const [draftedMap, setDraftedMap] = useState(initDraftedMap(players))
@@ -29,19 +30,29 @@ export default function MainPanel({ players, lastUpdateDate, yahooLoggedIn }) {
     const [playersTeams, setPlayersTeams] = useState({}) // initialize to empty array
     const [selectedTeam, setSelectedTeam] = useState('')
 
+    // Yahoo state
     const [_, setYahooPkceCookie] = useCookies([YahooPkceCookieKey])
     const [yahooTokenCookie, setYahooTokenCookie] = useCookies([YahooTokenCookieKey])
     const [yahooDraftedPlayerKeys, setYahooDraftedPlayerKeys] = useState([])
 
+    // Sleeper state
+    const [sleeperUsername, setSleeperUsername] = useState('')
+    const [sleeperDraftedPlayerIds, setSleeperDraftedPlayerIds] = useState([])
+
     const enrichedPlayers = enrichPlayers(players, draftedMap, pickNum, draftPos, numTeams, true)
-    // const enrichedPlayers = enrichPlayers(players, draftedMap, pickNum, draftPos, numTeams, true)
 
     useInterval(() => {
-        if (playersTeams[selectedTeam] && inputMode === YahooModeText) {
-            getDraftedPlayerKeys(yahooTokenCookie, setYahooTokenCookie,
-                playersTeams[selectedTeam], yahooDraftedPlayerKeys,
-                setYahooDraftedPlayerKeys, players, draftedMap, setDraftedMap, pickNum,
-                setPickNum)
+        if (playersTeams[selectedTeam]) {
+            if (inputMode === YahooModeText) {
+                getDraftedPlayerKeys(yahooTokenCookie, setYahooTokenCookie,
+                    playersTeams[selectedTeam], yahooDraftedPlayerKeys,
+                    setYahooDraftedPlayerKeys, players, draftedMap, setDraftedMap, pickNum,
+                    setPickNum)
+            } else if (inputMode === SleeperModeText) {
+                getSleeperDraftedPlayers(playersTeams[selectedTeam], sleeperDraftedPlayerIds,
+                    setSleeperDraftedPlayerIds, players, draftedMap, setDraftedMap, pickNum,
+                    setPickNum)
+            }
         }
     }, 5 * 1000)
 
@@ -66,6 +77,9 @@ export default function MainPanel({ players, lastUpdateDate, yahooLoggedIn }) {
                         yahooTokenCookie={yahooTokenCookie} setYahooTokenCookie={setYahooTokenCookie}
                         yahooDraftedPlayerKeys={yahooDraftedPlayerKeys} setYahooDraftedPlayerKeys={setYahooDraftedPlayerKeys}
                         allPlayers={players} setDraftedMap={setDraftedMap}
+                        // New Sleeper props
+                        sleeperUsername={sleeperUsername} setSleeperUsername={setSleeperUsername}
+                        sleeperDraftedPlayerIds={sleeperDraftedPlayerIds} setSleeperDraftedPlayerIds={setSleeperDraftedPlayerIds}
                     />
                 </Col>
             </Row>
