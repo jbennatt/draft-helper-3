@@ -1,0 +1,41 @@
+.attributionLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    padding: 8px 0;
+}
+
+.attributionLink:hover {
+    text-decoration: underline;
+}
+
+/* The source SVG (as provided by Yahoo, unmodified) has a 293x293 canvas
+   but the actual wordmark only occupies a thin strip in the middle of it.
+   Displaying the file at a small height scales the whole empty canvas down
+   with it, making the visible mark nearly invisible. To fix this without
+   editing the vendor file, we render the image at its natural scale and use
+   an overflow-hidden window + position offset to show only the wordmark
+   region. No cropping, resizing, or distortion is applied to the mark
+   itself — only which part of the untouched canvas is visible. */
+.logoCrop {
+    display: block;
+    overflow: hidden;
+    width: 235.5px;
+    height: 32px;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    top: -188.8px;
+    left: -87.1px;
+    height: 409.4px;
+    width: 409.4px;
+    max-width: none;
+}
+
+.text {
+    font-size: 0.85rem;
+}
