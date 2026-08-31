@@ -1,0 +1,24 @@
+.attributionLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    padding: 8px 0;
+}
+
+.attributionLink:hover {
+    text-decoration: underline;
+}
+
+/* Fixed height, auto width preserves the logo's native aspect ratio.
+   No filter, transform, or effect properties should be added here. */
+.logo {
+    height: 24px;
+    width: auto;
+    display: block;
+}
+
+.text {
+    font-size: 0.85rem;
+}

@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import ControlPanel from "./ControlPanel"
 import MainList from "./MainList"
 import PositionGrid from "./PositionGrid"
+import YahooAttribution from "./YahooAttribution"
 import {
     enrichPlayers, filterPlayers, filterByPos, filterBySearchName, filterByIncludeDrafted,
     initDraftedMap
@@ -105,6 +106,11 @@ export default function MainPanel({ players, lastUpdateDate, yahooLoggedIn }) {
                         draftPos={draftPos} numTeams={numTeams}
                         manualMode={manualMode}
                     />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <YahooAttribution />
                 </Col>
             </Row>
         </Container>
