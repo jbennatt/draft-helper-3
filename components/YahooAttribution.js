@@ -13,11 +13,13 @@ export default function YahooAttribution() {
             className={styles.attributionLink}
             aria-label="Fantasy data provided by Yahoo Fantasy"
         >
-            <img
-                src={withBasePath("/Yahoo_Fantasy.svg")}
-                alt="Yahoo Fantasy"
-                className={styles.logo}
-            />
+            <span className={styles.logoCrop}>
+                <img
+                    src={withBasePath("/Yahoo_Fantasy.svg")}
+                    alt="Yahoo Fantasy"
+                    className={styles.logo}
+                />
+            </span>
             <span className={styles.text}>Fantasy data provided by Yahoo Fantasy</span>
         </a>
     )
