@@ -78,7 +78,7 @@ export function filterByPos(pos) {
         const strippedPos = stripNumFromPos(player.position)
         return strippedPos === pos ||
             (pos === flex &&
-                (strippedPos === rb || strippedPos === wr)
+                (strippedPos === rb || strippedPos === wr || strippedPos === te)
             ) ||
             (pos === qbte &&
                 (strippedPos === qb || strippedPos === te)
