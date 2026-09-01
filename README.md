@@ -7,10 +7,10 @@ pnpm i
 
 # Build Site
 
-_These commands `npm run` `build`/`start`/`dev` are defined in package.json. They actually call `next` commands._
+_These commands `pnpm` `build`/`start`/`dev` are defined in package.json. They actually call `next` commands._
 
 ```shell
-npm run build
+pnpm build
 ```
 
 This outputs the static site to the `out` file in root directory.
@@ -22,11 +22,11 @@ Simply copy all files to S3 location. E.g. if site is called: _jaredbennatt.com/
 _Note: axios call will not work locally (XCOR) and will need to temporarily modify to use static json sample file_
 
 ```shell
-npm run start
+pnpm start
 ```
 
 or alternatively
 
 ```shell
-npm run dev
+pnpm dev
 ```

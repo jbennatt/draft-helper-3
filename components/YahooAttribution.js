@@ -11,7 +11,7 @@ export default function YahooAttribution() {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.attributionLink}
-            aria-label="Fantasy data provided by Yahoo Fantasy"
+            aria-label="Live fantasy draft data provided by Yahoo Fantasy"
         >
             <span className={styles.logoCrop}>
                 <img
@@ -20,7 +20,7 @@ export default function YahooAttribution() {
                     className={styles.logo}
                 />
             </span>
-            <span className={styles.text}>Fantasy data provided by Yahoo Fantasy</span>
+            <span className={styles.text}>Live fantasy draft data provided by Yahoo Fantasy</span>
         </a>
     )
 }
