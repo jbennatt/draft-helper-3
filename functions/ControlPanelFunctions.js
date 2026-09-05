@@ -2,7 +2,7 @@ import { updateYahooTeams } from "../services/YahooApiService"
 import { reauthorizeUser } from "../services/YahooTokenService"
 import { updateSleeperTeams } from "../services/SleeperApiService"
 
-export const supportedNumTeams = [8, 10, 12, 14, 16]
+export const supportedNumTeams = [4, 6, 8, 10, 12, 14, 16]
 export const ManualModeText = 'Manual'
 export const YahooModeText = 'Yahoo'
 export const SleeperModeText = 'Sleeper'
