@@ -61,6 +61,11 @@ export default function MainPanel({ players, lastUpdateDate, yahooLoggedIn }) {
         <Container>
             <Row>
                 <Col>
+                    <YahooAttribution />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <ControlPanel
                         pickNum={pickNum} setPickNum={setPickNum}
                         lastUpdateDate={lastUpdateDate}
@@ -106,11 +111,6 @@ export default function MainPanel({ players, lastUpdateDate, yahooLoggedIn }) {
                         draftPos={draftPos} numTeams={numTeams}
                         manualMode={manualMode}
                     />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <YahooAttribution />
                 </Col>
             </Row>
         </Container>
